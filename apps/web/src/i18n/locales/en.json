@@ -1,0 +1,6 @@
+{
+  "app": { "name": "Ledgerly" },
+  "nav": { "overview": "Overview", "pos": "Point of sale", "ledger": "Ledger", "invoices": "Invoices" },
+  "header": { "title": "Dashboard", "switchLanguage": "العربية", "toggleTheme": "Toggle theme" },
+  "overview": { "sales": "Today's sales", "cleared": "Invoices cleared", "vat": "VAT payable" }
+}

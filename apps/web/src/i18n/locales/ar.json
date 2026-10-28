@@ -1,0 +1,6 @@
+{
+  "app": { "name": "ليدجرلي" },
+  "nav": { "overview": "نظرة عامة", "pos": "نقطة البيع", "ledger": "دفتر الأستاذ", "invoices": "الفواتير" },
+  "header": { "title": "لوحة التحكم", "switchLanguage": "English", "toggleTheme": "تبديل المظهر" },
+  "overview": { "sales": "مبيعات اليوم", "cleared": "الفواتير المعتمدة", "vat": "ضريبة القيمة المضافة المستحقة" }
+}
