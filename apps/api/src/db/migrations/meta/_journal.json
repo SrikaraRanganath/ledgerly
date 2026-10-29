@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1793255020159,
+      "tag": "0000_regular_thor_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793268260110,
+      "tag": "0001_oval_war_machine",
+      "breakpoints": true
+    }
+  ]
+}

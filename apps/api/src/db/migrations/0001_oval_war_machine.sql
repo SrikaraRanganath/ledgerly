@@ -1,0 +1,1 @@
+CREATE INDEX `ledger_account_date_idx` ON `ledger_entries` (`account_id`,`entry_date`);
