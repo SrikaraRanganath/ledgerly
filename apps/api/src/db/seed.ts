@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { db } from './client'
-import { accounts, products, ledgerEntries } from './schema'
+import { accounts, products, ledgerEntries, invoices, invoiceLines, payments } from './schema'
 
 // Deterministic random so every run gives the same data
 function rng(seed: number) {
@@ -16,12 +16,16 @@ const pick = <T,>(arr: T[]) => arr[Math.floor(rand() * arr.length)]
 const between = (a: number, b: number) => Math.floor(rand() * (b - a + 1)) + a
 
 db.transaction((tx) => {
-  tx.delete(ledgerEntries).run()
-  tx.delete(products).run()
-  tx.delete(accounts).run()
+tx.delete(payments).run()
+tx.delete(ledgerEntries).run()
+tx.delete(invoiceLines).run()
+tx.delete(invoices).run()
+tx.delete(products).run()
+tx.delete(accounts).run()
 
   const acc = tx.insert(accounts).values([
     { code: '1000', nameEn: 'Cash', nameAr: 'النقدية', type: 'asset' },
+    { code: '1010', nameEn: 'Card settlements', nameAr: 'تسويات البطاقات', type: 'asset' },
     { code: '1100', nameEn: 'Accounts receivable', nameAr: 'الذمم المدينة', type: 'asset' },
     { code: '1200', nameEn: 'Inventory', nameAr: 'المخزون', type: 'asset' },
     { code: '2100', nameEn: 'VAT payable', nameAr: 'ضريبة القيمة المضافة المستحقة', type: 'liability' },

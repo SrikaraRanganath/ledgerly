@@ -4,6 +4,7 @@ import { and, asc, desc, eq, gte, lte, like, count } from 'drizzle-orm'
 import { ledgerQuerySchema } from '@ledgerly/shared'
 import { db } from '../db/client'
 import { ledgerEntries } from '../db/schema'
+import { stripWildcards } from '../lib/utils'
 
 export const ledger = new Hono()
 
@@ -13,7 +14,7 @@ ledger.get('/', zValidator('query', ledgerQuerySchema), (c) => {
     accountId ? eq(ledgerEntries.accountId, accountId) : undefined,
     from ? gte(ledgerEntries.entryDate, from) : undefined,
     to ? lte(ledgerEntries.entryDate, to) : undefined,
-    q ? like(ledgerEntries.description, `%${q}%`) : undefined,
+    q ? like(ledgerEntries.description, `%${stripWildcards(q)}%`) : undefined,
   )
   const col = { entryDate: ledgerEntries.entryDate, debit: ledgerEntries.debit, credit: ledgerEntries.credit }[sort]
   const rows = db.select().from(ledgerEntries).where(where)

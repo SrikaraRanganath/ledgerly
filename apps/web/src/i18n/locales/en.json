@@ -2,5 +2,14 @@
   "app": { "name": "Ledgerly" },
   "nav": { "overview": "Overview", "pos": "Point of sale", "ledger": "Ledger", "invoices": "Invoices" },
   "header": { "title": "Dashboard", "switchLanguage": "العربية", "toggleTheme": "Toggle theme" },
-  "overview": { "sales": "Today's sales", "cleared": "Invoices cleared", "vat": "VAT payable" }
+  "overview": { "sales": "Today's sales", "cleared": "Invoices cleared", "vat": "VAT payable" },
+  "pos": {
+    "search": "Search items (press /)", "cart": "Cart", "empty": "Cart is empty",
+    "subtotal": "Subtotal", "vat": "VAT 15%", "total": "Total incl. VAT", "pay": "Pay",
+    "payTitle": "Payment", "cash": "Cash", "card": "Card", "full": "Full",
+    "remaining": "Remaining", "confirm": "Confirm payment", "recent": "Recent sales",
+    "saving": "Saving…", "remove": "Remove", "loading": "Loading…",
+    "loadError": "Couldn't load products.", "retry": "Retry",
+    "stock_one": "{{count}} in stock", "stock_other": "{{count}} in stock"
+  }
 }

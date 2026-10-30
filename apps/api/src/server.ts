@@ -16,4 +16,5 @@ app.onError((err, c) => {
   return c.json({ error: 'Internal server error' }, 500)
 })
 
-serve({ fetch: app.fetch, port: 3000 }, (i) => console.log(`API on http://localhost:${i.port}`))
+const PORT = parseInt(process.env.PORT || '3000', 10)
+serve({ fetch: app.fetch, port: PORT }, (i) => console.log(`API on http://localhost:${i.port}`))

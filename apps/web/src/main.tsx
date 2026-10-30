@@ -6,18 +6,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AppLayout from '@/app/layout/AppLayout'
 import Overview from '@/pages/Overview'
 import Placeholder from '@/pages/Placeholder'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import PosPage from '@/features/pos/PosPage'
+
+const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000, retry: 1 } } })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route index element={<Overview />} />
-          <Route path="pos" element={<Placeholder title="POS" />} />
-          <Route path="ledger" element={<Placeholder title="Ledger" />} />
-          <Route path="invoices" element={<Placeholder title="Invoices" />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Overview />} />
+            <Route path="pos" element={<PosPage />} />
+            <Route path="ledger" element={<Placeholder title="Ledger" />} />
+            <Route path="invoices" element={<Placeholder title="Invoices" />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>
 )

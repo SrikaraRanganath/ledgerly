@@ -2,5 +2,15 @@
   "app": { "name": "ليدجرلي" },
   "nav": { "overview": "نظرة عامة", "pos": "نقطة البيع", "ledger": "دفتر الأستاذ", "invoices": "الفواتير" },
   "header": { "title": "لوحة التحكم", "switchLanguage": "English", "toggleTheme": "تبديل المظهر" },
-  "overview": { "sales": "مبيعات اليوم", "cleared": "الفواتير المعتمدة", "vat": "ضريبة القيمة المضافة المستحقة" }
+  "overview": { "sales": "مبيعات اليوم", "cleared": "الفواتير المعتمدة", "vat": "ضريبة القيمة المضافة المستحقة" },
+  "pos": {
+    "search": "ابحث عن منتج (اضغط /)", "cart": "السلة", "empty": "السلة فارغة",
+    "subtotal": "المجموع قبل الضريبة", "vat": "ضريبة القيمة المضافة 15%", "total": "الإجمالي شامل الضريبة", "pay": "دفع",
+    "payTitle": "الدفع", "cash": "نقداً", "card": "بطاقة", "full": "كامل المبلغ",
+    "remaining": "المتبقي", "confirm": "تأكيد الدفع", "recent": "آخر المبيعات",
+    "saving": "جارٍ الحفظ…", "remove": "حذف", "loading": "جارٍ التحميل…",
+    "loadError": "تعذّر تحميل المنتجات.", "retry": "إعادة المحاولة",
+    "stock_zero": "غير متوفر", "stock_one": "متوفر: {{count}}", "stock_two": "متوفر: {{count}}",
+    "stock_few": "متوفر: {{count}}", "stock_many": "متوفر: {{count}}", "stock_other": "متوفر: {{count}}"
+  }
 }

@@ -12,10 +12,19 @@ export const ledgerQuerySchema = z.object({
 })
 export type LedgerQuery = z.infer<typeof ledgerQuerySchema>
 
+export const paymentSchema = z.object({
+  method: z.enum(['cash', 'card']),
+  amount: z.number().int().min(1), // halalas
+})
+export type Payment = z.infer<typeof paymentSchema>
+
 export const checkoutSchema = z.object({
   customerId: z.number().int().optional(),
   items: z
     .array(z.object({ productId: z.number().int(), qty: z.number().int().min(1).max(999) }))
     .min(1),
+  payments: z.array(paymentSchema).min(1),
 })
 export type CheckoutInput = z.infer<typeof checkoutSchema>
+
+export { calcTotals, lineAmounts } from './pricing'

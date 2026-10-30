@@ -73,3 +73,10 @@ export const ledgerEntries = sqliteTable(
     index('ledger_journal_idx').on(t.journalId),
   ]
 )
+
+export const payments = sqliteTable('payments', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  invoiceId: integer('invoice_id').notNull().references(() => invoices.id),
+  method: text('method', { enum: ['cash', 'card'] }).notNull(),
+  amount: integer('amount').notNull(),
+})
