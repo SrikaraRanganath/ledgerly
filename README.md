@@ -1,8 +1,7 @@
 # Ledgerly
 
 A small POS and accounting demo for the Saudi market: Arabic/RTL, keyboard-first
-checkout, a virtualised ledger, and ZATCA-style e-invoicing. Original code and
-invented data. Not affiliated with any company.
+checkout, a virtualised ledger, and ZATCA-style e-invoicing. 
 
 **Live:** <url> (free instance: first load may take ~1 min; data resets on restart)
 **Video:** <url>
