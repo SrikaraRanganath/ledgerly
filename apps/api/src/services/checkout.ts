@@ -1,12 +1,15 @@
 import { randomUUID } from 'node:crypto'
-import { count, eq, inArray, sql } from 'drizzle-orm'
-import { calcTotals, lineAmounts, type CheckoutInput } from '@ledgerly/shared'
+import { count, desc, eq, inArray, isNotNull, sql } from 'drizzle-orm'
+import { calcTotals, encodeZatcaQr, lineAmounts, type CheckoutInput } from '@ledgerly/shared'
 import { db } from '../db/client'
-import { accounts, invoiceLines, invoices, ledgerEntries, payments, products } from '../db/schema'
+import { accounts, invoiceLines, invoices, ledgerEntries, payments, products, zatcaEvents } from '../db/schema'
+import { SELLER } from '../zatca/config'
+import { buildInvoiceXml, GENESIS_PIH, sar, sha256b64 } from '../zatca/xml'
 
 export class CheckoutError extends Error {}
 
 export function createInvoice(input: CheckoutInput) {
+
   return db.transaction((tx) => {
 
     // Check for duplicate product IDs
@@ -16,12 +19,10 @@ export function createInvoice(input: CheckoutInput) {
       seen.add(item.productId)
     }
 
-    // Fetch products in cart from the database
     const found = tx.select().from(products)
       .where(inArray(products.id, input.items.map((i) => i.productId))).all()
     const byId = new Map(found.map((p) => [p.id, p]))
 
-    // Check for unknown products and stock availability, and calculate line totals
     const priced = input.items.map((item) => {
       const p = byId.get(item.productId)
       if (!p) throw new CheckoutError(`Unknown product ${item.productId}`)
@@ -35,12 +36,39 @@ export function createInvoice(input: CheckoutInput) {
 
     const seq = tx.select({ n: count() }).from(invoices).get()!.n + 1
     const now = Date.now()
+    const number = `INV-${new Date(now).getUTCFullYear()}-${String(seq).padStart(4, '0')}`
+    const uuid = randomUUID()
+    const type = input.buyer ? 'standard' : 'simplified'
+
+    // --- e-invoicing: chain, XML, hash, QR ---
+    const prev = tx.select({ icv: invoices.icv, hash: invoices.invoiceHash }).from(invoices)
+      .where(isNotNull(invoices.icv)).orderBy(desc(invoices.icv)).limit(1).get()
+    const icv = (prev?.icv ?? 0) + 1
+    const previousHash = prev?.hash ?? GENESIS_PIH
+
+    const xml = buildInvoiceXml({
+      uuid, number, issuedAt: now, type, icv, previousHash,
+      seller: SELLER, buyer: input.buyer ?? null,
+      lines: priced.map((l) => {
+        const a = lineAmounts(l)
+        return { name: l.product.nameEn, qty: l.qty, unit: l.priceHalalas, vatRate: l.vatRate, net: a.net, vat: a.vat }
+      }),
+      subtotal, vatTotal, total,
+    })
+    const invoiceHash = sha256b64(xml)
+    const qr = encodeZatcaQr({
+      sellerName: SELLER.nameAr, vatNumber: SELLER.vatNumber,
+      timestamp: new Date(now).toISOString().slice(0, 19) + 'Z',
+      total: sar(total), vat: sar(vatTotal), hash: invoiceHash,
+    })
+
     const invoice = tx.insert(invoices).values({
-      uuid: randomUUID(),
-      number: `INV-${new Date(now).getUTCFullYear()}-${String(seq).padStart(4, '0')}`,
-      customerId: input.customerId,
-      issuedAt: now, subtotal, vatTotal, total,
+      uuid, number, type, customerId: input.customerId,
+      buyerName: input.buyer?.name, buyerVat: input.buyer?.vatNumber,
+      issuedAt: now, subtotal, vatTotal, total, icv, previousHash, invoiceHash, xml, qr,
     }).returning().get()
+
+    tx.insert(zatcaEvents).values({ invoiceId: invoice.id, at: now, type: 'created', detail: `ICV ${icv}` }).run()
 
     tx.insert(invoiceLines).values(priced.map((l) => ({
       invoiceId: invoice.id, productId: l.product.id, qty: l.qty,

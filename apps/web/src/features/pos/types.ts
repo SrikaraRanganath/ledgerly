@@ -5,6 +5,6 @@ export type Product = {
 export type Invoice = {
   id: number; uuid: string; number: string; customerId: number | null; issuedAt: number
   subtotal: number; vatTotal: number; total: number
-  status: 'pending' | 'cleared' | 'rejected'
+  status: 'pending' | 'cleared' | 'reported' | 'rejected'
 }
 export const productName = (p: Product, lang: string) => (lang === 'ar' ? p.nameAr : p.nameEn)

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { db } from './client'
-import { accounts, products, ledgerEntries, invoices, invoiceLines, payments } from './schema'
+import { accounts, products, ledgerEntries, invoices, invoiceLines, payments, zatcaEvents } from './schema'
 
 // Deterministic random so every run gives the same data
 function rng(seed: number) {
@@ -19,6 +19,7 @@ db.transaction((tx) => {
 tx.delete(payments).run()
 tx.delete(ledgerEntries).run()
 tx.delete(invoiceLines).run()
+tx.delete(zatcaEvents).run()
 tx.delete(invoices).run()
 tx.delete(products).run()
 tx.delete(accounts).run()

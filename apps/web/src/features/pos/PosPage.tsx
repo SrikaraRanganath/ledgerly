@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CheckoutInput, Payment } from '@ledgerly/shared'
+import type { CheckoutInput, Payment, Buyer } from '@ledgerly/shared'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useCheckout, useProducts } from './api'
@@ -39,11 +39,12 @@ export default function PosPage() {
     !payOpen,
   )
 
-  function pay(payments: Payment[]) {
+  function pay(payments: Payment[], buyer?: Buyer) {
     const snapshot = cart.state
     const input: CheckoutInput = {
       items: snapshot.lines.map((l) => ({ productId: l.product.id, qty: l.qty })),
       payments,
+      buyer,
     }
     const total = cart.totals.total
     cart.clear()                 // optimistic: the screen is ready for the next customer

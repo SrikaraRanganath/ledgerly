@@ -10,7 +10,8 @@
     "remaining": "Remaining", "confirm": "Confirm payment", "recent": "Recent sales",
     "saving": "Saving…", "remove": "Remove", "loading": "Loading…",
     "loadError": "Couldn't load products.", "retry": "Retry",
-    "stock_one": "{{count}} in stock", "stock_other": "{{count}} in stock"
+    "stock_one": "{{count}} in stock", "stock_other": "{{count}} in stock",
+    "b2b": "Business customer (B2B tax invoice)", "buyerName": "Company name", "buyerVat": "VAT number (15 digits)"
   },
   "ledger": {
     "title": "General ledger", "account": "Account", "allAccounts": "All accounts",
@@ -20,5 +21,30 @@
     "balanced": "Balanced", "outOfBalance": "Out of balance by {{amount}}",
     "empty": "No matching entries", "loadError": "Couldn't load the ledger.", "retry": "Retry",
     "rendered": "DOM rows {{dom}} · loaded {{loaded}} of {{total}}"
+  },
+  "invoices": {
+    "title": "Invoices", "all": "All", "number": "Number", "date": "Date", "total": "Total", "vat": "VAT",
+    "typeCol": "Type", "statusCol": "Status", "buyer": "Buyer", "empty": "No invoices", "loadError": "Couldn't load invoices.",
+    "simulated": "Simulated gateway. Not connected to ZATCA.",
+    "status": { "pending": "Pending", "cleared": "Cleared", "reported": "Reported", "rejected": "Rejected" },
+    "type": { "simplified": "Simplified (reporting)", "standard": "Standard (clearance)" },
+    "pendingB2C": "Waiting to be reported to ZATCA (allowed up to 24 hours after issue).",
+    "pendingB2B": "Not valid until ZATCA clears it. It can't be handed to the customer yet.",
+    "attempts": "Attempts: {{n}}", "nextRetry": "next retry at {{time}}", "retryNow": "Retry now",
+    "rejectedNote": "Rejected invoices can't be edited. They must be reported to ZATCA again.",
+    "hashChain": "Hash chain", "previousHash": "Previous invoice hash (PIH)", "invoiceHash": "This invoice's hash",
+    "timeline": "Timeline", "verify": "Verify hash chain",
+    "chainOk": "Chain intact: {{n}} invoices verified", "chainBroken": "Chain broken at {{number}}: {{reason}}",
+    "event": { "created": "Created", "submitted": "Submitted to gateway", "accepted": "Accepted",
+      "rejected": "Rejected", "network_error": "Gateway unreachable", "retry_scheduled": "Retry scheduled" },
+    "qrTag": { "1": "Seller name", "2": "VAT number", "3": "Timestamp", "4": "Total (with VAT)", "5": "VAT amount", "6": "Invoice hash" },
+    "dev": { "gateway": "Gateway (dev only)", "normal": "Normal", "outage": "Outage", "reject": "Force reject",
+      "tamper": "Tamper with XML (dev)", "tampered": "XML modified. Verify the chain." }
+  },
+  "dashboard": {
+    "title": "Overview", "loading": "Loading…", "error": "Couldn't load the overview.", "retry": "Retry",
+    "salesToday": "Sales today (excl. VAT)", "sales30": "Sales, last 30 days", "vat30": "VAT collected, 30 days",
+    "pending": "Invoices pending", "rejected": "rejected", "trend": "Daily sales, last 30 days",
+    "lowStock": "Low stock", "noLow": "Nothing running low"
   }
 }

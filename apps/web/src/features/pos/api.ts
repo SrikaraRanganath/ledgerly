@@ -13,7 +13,11 @@ export function useProducts(q: string) {
 }
 
 export function useInvoices() {
-  return useQuery({ queryKey: ['invoices'], queryFn: () => api<Invoice[]>('/api/invoices') })
+  return useQuery({
+    queryKey: ['invoices'],
+    queryFn: () => api<Invoice[]>('/api/invoices'),
+    refetchInterval: (q) => (q.state.data?.some((i) => i.status === 'pending') ? 2000 : false),
+  })
 }
 
 type Vars = { input: CheckoutInput; total: number }
@@ -59,6 +63,7 @@ export function useCheckout() {
       qc.invalidateQueries({ queryKey: ['products'] })
       qc.invalidateQueries({ queryKey: ['ledger'] })
       qc.invalidateQueries({ queryKey: ['ledger-summary'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
 }

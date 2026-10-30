@@ -35,10 +35,21 @@ export const invoices = sqliteTable(
     subtotal: integer('subtotal').notNull(),
     vatTotal: integer('vat_total').notNull(),
     total: integer('total').notNull(),
-    status: text('status', { enum: ['pending', 'cleared', 'rejected'] }).notNull().default('pending'),
+    status: text('status', { enum: ['pending', 'cleared', 'reported', 'rejected'] }).notNull().default('pending'),
     rejectionCode: text('rejection_code'),
+    invoiceHash: text('invoice_hash'),
     previousHash: text('previous_hash'),
     hash: text('hash'),
+    type: text('type', { enum: ['simplified', 'standard'] }).notNull().default('simplified'),
+    buyerName: text('buyer_name'),
+    buyerVat: text('buyer_vat'),
+    icv: integer('icv'),                       // invoice counter value
+    xml: text('xml'),
+    qr: text('qr'),
+    rejectionMessage: text('rejection_message'),
+    clearedAt: integer('cleared_at'),
+    attempts: integer('attempts').notNull().default(0),
+    nextRetryAt: integer('next_retry_at'),
   },
   (t) => [index('invoices_status_idx').on(t.status)]
 )
@@ -79,4 +90,14 @@ export const payments = sqliteTable('payments', {
   invoiceId: integer('invoice_id').notNull().references(() => invoices.id),
   method: text('method', { enum: ['cash', 'card'] }).notNull(),
   amount: integer('amount').notNull(),
+})
+
+export const zatcaEvents = sqliteTable('zatca_events', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  invoiceId: integer('invoice_id').notNull().references(() => invoices.id),
+  at: integer('at').notNull(),
+  type: text('type', {
+    enum: ['created', 'submitted', 'accepted', 'rejected', 'network_error', 'retry_scheduled'],
+  }).notNull(),
+  detail: text('detail'),
 })
