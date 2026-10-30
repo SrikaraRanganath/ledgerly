@@ -3,7 +3,7 @@
 A small POS and accounting demo for the Saudi market: Arabic/RTL, keyboard-first
 checkout, a virtualised ledger, and ZATCA-style e-invoicing. 
 
-**Live:** <url> (free instance: first load may take ~1 min; data resets on restart)
+**Live:** https://ledgerly-0yet.onrender.com (free instance: first load may take ~1 min; data resets on restart after 15 mins of inactivity)
 **Video:** <url>
 
 ## What's in it
@@ -22,12 +22,12 @@ between web and API (pnpm workspace).
 - Money is stored as integer halalas; the server recomputes prices and never trusts the client
 - One shared pricing function used by both server and UI
 - Sale, invoice hash chain and ledger posting happen in one DB transaction
-- Keyset (cursor) pagination instead of OFFSET
+- Keyset (cursor) pagination instead of OFFSET for better performance
 
 ## What is simulated / not done
 - The ZATCA gateway is a simulator: no XAdES signing, no CSID onboarding, no Fatoora sandbox.
   Error codes are SIM-xxx, not real BR-KSA codes.
-- No automated tests yet (next step), and the Arabic copy needs a native review.
+- No automated tests yet, and the Arabic translations are AI generated.
 - Demo tools (outage/tamper) are enabled on the live site and share state.
 
 ## Run locally
