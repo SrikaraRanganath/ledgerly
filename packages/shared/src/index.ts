@@ -1,14 +1,14 @@
 import { z } from 'zod'
 
 export const ledgerQuerySchema = z.object({
-  page: z.coerce.number().int().min(1).default(1),
-  limit: z.coerce.number().int().min(1).max(200).default(50),
   accountId: z.coerce.number().int().optional(),
   from: z.coerce.number().int().optional(), // unix ms
   to: z.coerce.number().int().optional(),
   q: z.string().trim().min(1).optional(),
   sort: z.enum(['entryDate', 'debit', 'credit']).default('entryDate'),
-  dir: z.enum(['asc', 'desc']).default('desc'),
+  order: z.enum(['asc', 'desc']).default('desc'),
+  cursor: z.string().max(200).optional(),
+  limit: z.coerce.number().int().min(1).max(500).default(100),
 })
 export type LedgerQuery = z.infer<typeof ledgerQuerySchema>
 

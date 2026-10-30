@@ -57,6 +57,8 @@ export function useCheckout() {
     onSettled: () => {
       qc.invalidateQueries({ queryKey: ['invoices'] })
       qc.invalidateQueries({ queryKey: ['products'] })
+      qc.invalidateQueries({ queryKey: ['ledger'] })
+      qc.invalidateQueries({ queryKey: ['ledger-summary'] })
     },
   })
 }

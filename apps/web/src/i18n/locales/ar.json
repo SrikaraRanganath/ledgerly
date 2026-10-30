@@ -12,5 +12,14 @@
     "loadError": "تعذّر تحميل المنتجات.", "retry": "إعادة المحاولة",
     "stock_zero": "غير متوفر", "stock_one": "متوفر: {{count}}", "stock_two": "متوفر: {{count}}",
     "stock_few": "متوفر: {{count}}", "stock_many": "متوفر: {{count}}", "stock_other": "متوفر: {{count}}"
+  },
+  "ledger": {
+    "title": "دفتر الأستاذ", "account": "الحساب", "allAccounts": "كل الحسابات",
+    "from": "من", "to": "إلى", "searchLabel": "بحث", "search": "الوصف أو المرجع",
+    "clear": "مسح التصفية", "date": "التاريخ", "ref": "المرجع", "description": "الوصف",
+    "debit": "مدين", "credit": "دائن", "entries": "القيود", "net": "الصافي (مدين − دائن)",
+    "balanced": "متوازن", "outOfBalance": "غير متوازن بمقدار {{amount}}",
+    "empty": "لا توجد قيود مطابقة", "loadError": "تعذّر تحميل القيود.", "retry": "إعادة المحاولة",
+    "rendered": "عناصر DOM: {{dom}} · المحمّل {{loaded}} من {{total}}"
   }
 }

@@ -8,6 +8,7 @@ import Overview from '@/pages/Overview'
 import Placeholder from '@/pages/Placeholder'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import PosPage from '@/features/pos/PosPage'
+import LedgerPage from '@/features/ledger/LedgerPage'
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000, retry: 1 } } })
 
@@ -19,7 +20,7 @@ createRoot(document.getElementById('root')!).render(
           <Route element={<AppLayout />}>
             <Route index element={<Overview />} />
             <Route path="pos" element={<PosPage />} />
-            <Route path="ledger" element={<Placeholder title="Ledger" />} />
+            <Route path="ledger" element={<LedgerPage />} />
             <Route path="invoices" element={<Placeholder title="Invoices" />} />
           </Route>
         </Routes>

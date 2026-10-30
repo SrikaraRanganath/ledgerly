@@ -69,8 +69,8 @@ export const ledgerEntries = sqliteTable(
   (t) => [
     index('ledger_account_idx').on(t.accountId),
     index('ledger_account_date_idx').on(t.accountId, t.entryDate),
-    index('ledger_date_idx').on(t.entryDate),
-    index('ledger_journal_idx').on(t.journalId),
+    index('ledger_date_idx').on(t.entryDate, t.id),
+    index('ledger_journal_idx').on(t.journalId)
   ]
 )
 

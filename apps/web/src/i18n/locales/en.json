@@ -11,5 +11,14 @@
     "saving": "Saving…", "remove": "Remove", "loading": "Loading…",
     "loadError": "Couldn't load products.", "retry": "Retry",
     "stock_one": "{{count}} in stock", "stock_other": "{{count}} in stock"
+  },
+  "ledger": {
+    "title": "General ledger", "account": "Account", "allAccounts": "All accounts",
+    "from": "From", "to": "To", "searchLabel": "Search", "search": "Description or reference",
+    "clear": "Clear filters", "date": "Date", "ref": "Reference", "description": "Description",
+    "debit": "Debit", "credit": "Credit", "entries": "Entries", "net": "Net (Dr − Cr)",
+    "balanced": "Balanced", "outOfBalance": "Out of balance by {{amount}}",
+    "empty": "No matching entries", "loadError": "Couldn't load the ledger.", "retry": "Retry",
+    "rendered": "DOM rows {{dom}} · loaded {{loaded}} of {{total}}"
   }
 }
